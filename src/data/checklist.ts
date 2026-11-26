@@ -43,6 +43,8 @@ export const categories: Category[] = [
       'Materace, kanapy i pozostałe wyposażenie sprawdzone.',
       'Brak uszkodzeń powstałych podczas przenoszenia mebli.',
       'Wszystkie elementy wyposażenia kompletne.',
+      'Narożnik i fotel oddane do tapicera.',
+      'Meble, obrazy i wszystkie pozostałe elementy wyposażenia obecne przy wprowadzeniu ustawione na swoich miejscach.',
     ]),
   },
   {
@@ -55,6 +57,7 @@ export const categories: Category[] = [
       'Zlew, krany i blaty umyte.',
       'Podłoga i ściany wyczyszczone.',
       'Brak resztek jedzenia i śmieci.',
+      'Data wymiany filtra w lodówce udokumentowana.',
     ]),
   },
   {
@@ -66,6 +69,7 @@ export const categories: Category[] = [
       'Lustro i szafki wyczyszczone.',
       'Odpływy oczyszczone.',
       'Usunięte zabrudzenia i osady z kamienia.',
+      'Pralka umyta.',
     ]),
   },
   {
@@ -77,6 +81,7 @@ export const categories: Category[] = [
       'Drzwi i klamki wyczyszczone.',
       'Meble właściciela wyczyszczone.',
       'Ściany sprawdzone pod kątem uszkodzeń.',
+      'Okna oraz parapety zewnętrzne i wewnętrzne umyte.',
     ]),
   },
   {
@@ -88,6 +93,8 @@ export const categories: Category[] = [
       'Uszkodzenia powstałe podczas najmu zgłoszone i naprawione lub uzgodnione z właścicielem.',
       'Wszystkie żarówki i podstawowe elementy wyposażenia sprawdzone.',
       'Wszystkie usterki zgłoszone właścicielowi.',
+      'Uzyskane ze spółdzielni zaświadczenie o przeprowadzonych obowiązkowych przeglądach instalacji gazowej i elektrycznej.',
+      'Dziury wywiercone bez zgody właściciela zagipsowane i odmalowane.',
     ]),
   },
   {
