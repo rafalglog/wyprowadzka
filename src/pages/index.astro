@@ -1,0 +1,101 @@
+---
+import { ArrowDown, ArrowRight, CalendarDays, Check, CheckCheck, CircleQuestionMark, ClipboardCheck, House, Info, ListChecks, Printer, RotateCcw, Sparkles } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import ChecklistCategory from '../components/ChecklistCategory.astro';
+import Timeline from '../components/Timeline.astro';
+import { categories, milestones } from '../data/checklist';
+
+const total = categories.reduce((sum, category) => sum + category.tasks.length, 0);
+---
+
+<Layout>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="Spokojna przeprowadzka — strona główna">
+        <span class="brand-icon"><House size={17} stroke-width={2} /></span>
+        <span>spokojna<span class="brand-light">przeprowadzka</span><span class="brand-dot">.</span></span>
+      </a>
+      <nav aria-label="Nawigacja główna">
+        <a href="#checklista">Lista zadań</a>
+        <a href="#harmonogram">Harmonogram</a>
+      </nav>
+      <span class="header-label"><span></span> TWÓJ PLAN NA SPOKOJNĄ ZMIANĘ</span>
+    </div>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> DOBRZE MIEĆ PLAN</div>
+        <h1 id="page-title">Przygotowanie mieszkania <em>do przekazania.</em></h1>
+        <p>Plan działania i lista kontrolna przed zakończeniem najmu.</p>
+        <a class="hero-link" href="#checklista">Zobacz listę zadań <ArrowDown size={16} /></a>
+      </div>
+      <div class="countdown-card">
+        <div class="countdown-top"><span>TWÓJ CEL</span><span class="countdown-icon"><CalendarDays size={18} /></span></div>
+        <div class="countdown-number" id="countdown-number">—</div>
+        <p id="countdown-label">dni do przygotowania mieszkania</p>
+        <div class="countdown-divider"></div>
+        <div class="countdown-date"><span>TERMIN PRZYGOTOWANIA</span><strong>30 lipca 2027</strong></div>
+      </div>
+    </section>
+
+    <div id="deadline-notice" class="deadline-notice" role="status" hidden></div>
+
+    <section class="dates-strip" aria-label="Ważne daty">
+      <div class="dates-intro"><CalendarDays size={18} /><span>WAŻNE DATY</span></div>
+      <div class="date-item"><span>Przygotowanie mieszkania</span><strong>30 lipca 2027</strong></div>
+      <div class="date-item"><span>Odbiór mieszkania</span><strong>31 lipca 2027</strong></div>
+      <div class="date-item"><span>Zakończenie najmu</span><strong>31 lipca 2027</strong></div>
+    </section>
+
+    <section class="overview" aria-labelledby="progress-heading">
+      <div class="progress-panel">
+        <div class="section-kicker">MAŁE KROKI, DUŻY SPOKÓJ</div>
+        <div class="progress-heading">
+          <div><h2 id="progress-heading">Twój postęp</h2><p>Każde odhaczone zadanie przybliża Cię do celu.</p></div>
+          <strong id="overall-percent">0<span>%</span></strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Postęp przygotowań" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overall-progress"><div class="progress-fill" id="overall-fill"></div></div>
+        <div class="progress-meta"><span><CheckCheck size={16} /> <strong id="completed-count">0</strong> z {total} zadań wykonanych</span><span id="remaining-count">{total} pozostało</span></div>
+      </div>
+      <aside class="notice-panel">
+        <div class="notice-icon"><Info size={18} /></div>
+        <div><div class="notice-heading">Warto pamiętać</div><p><strong>Mieszkanie jest umeblowane.</strong> Wszystkie meble i wyposażenie właściciela muszą pozostać w mieszkaniu. Meble przeniesione do piwnicy należy przywrócić na pierwotne miejsca.</p></div>
+      </aside>
+    </section>
+
+    <section id="checklista" class="checklist-section" aria-labelledby="checklist-heading">
+      <div class="section-heading">
+        <div><div class="section-kicker">KROK PO KROKU</div><h2 id="checklist-heading">Lista do zrobienia<span class="heading-dot">.</span></h2><p>Wszystko, o czym warto pamiętać przed przekazaniem mieszkania.</p></div>
+        <div class="heading-count"><ListChecks size={17} /> {total} ZADAŃ <span>·</span> {categories.length} KATEGORII</div>
+      </div>
+      <div class="checklist-toolbar">
+        <label class="filter-label"><input id="unfinished-filter" type="checkbox" /><span class="filter-switch"></span><span>Pokaż tylko niewykonane</span></label>
+        <div class="toolbar-actions"><button type="button" id="expand-all">Rozwiń wszystkie</button><span></span><button type="button" id="collapse-all">Zwiń wszystkie</button></div>
+      </div>
+      <div class="category-list">
+        {categories.map((category, index) => <ChecklistCategory category={category} index={index} />)}
+      </div>
+      <p class="all-done" id="all-done" hidden><Check size={18} /> Wszystkie zadania są wykonane. Dobra robota!</p>
+      <div class="checklist-footer">
+        <p><CircleQuestionMark size={15} /> Postęp zapisuje się automatycznie w tej przeglądarce.</p>
+        <div><button type="button" id="print-checklist"><Printer size={15} /> Drukuj listę</button><button type="button" id="reset-progress"><RotateCcw size={15} /> Resetuj postęp</button></div>
+      </div>
+      <p class="storage-error" id="storage-error" role="alert" hidden></p>
+      <noscript><p class="storage-error">Włącz JavaScript, aby zapisywać postęp i korzystać z filtrów.</p></noscript>
+    </section>
+
+    <Timeline milestones={milestones} />
+
+    <section class="closing-note">
+      <div class="closing-icon"><Sparkles size={20} /></div>
+      <div><strong>Wszystko po kolei.</strong><p>Dobry plan to mniej stresu w dniu przeprowadzki.</p></div>
+      <a href="#top">Wróć na górę <ArrowRight size={16} /></a>
+    </section>
+  </main>
+  <footer class="site-footer shell"><span><ClipboardCheck size={15} /> Spokojna przeprowadzka</span><span>Przygotowano z myślą o spokojnym przekazaniu mieszkania.</span></footer>
+  <script>
+    import '../scripts/checklist';
+  </script>
+</Layout>

@@ -1,0 +1,21 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import type { Milestone } from '../data/checklist';
+interface Props { milestones: Milestone[] }
+const { milestones } = Astro.props;
+---
+<section id="harmonogram" class="timeline-section" aria-labelledby="timeline-heading">
+  <div class="section-heading timeline-heading">
+    <div><div class="section-kicker">NA SPOKOJNIE, Z WYPRZEDZENIEM</div><h2 id="timeline-heading">Harmonogram przygotowań<span class="heading-dot">.</span></h2><p>Rozłóż przygotowania w czasie i działaj we własnym tempie.</p></div>
+    <span class="timeline-range">GRUDZIEŃ 2026 <ArrowUpRight size={15} /> LIPIEC 2027</span>
+  </div>
+  <div class="timeline">
+    {milestones.map((milestone) => (
+      <article class:list={['milestone', { 'milestone-highlight': milestone.highlight }]}>
+        <div class="milestone-period">{milestone.period}</div>
+        <div class="milestone-marker"><span></span></div>
+        <div class="milestone-content"><h3>{milestone.title}</h3><ul>{milestone.tasks.map((task) => <li>{task}</li>)}</ul></div>
+      </article>
+    ))}
+  </div>
+</section>

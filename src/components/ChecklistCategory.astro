@@ -1,0 +1,27 @@
+---
+import { CalendarDays, ChevronDown } from '@lucide/astro';
+import type { Category } from '../data/checklist';
+
+interface Props { category: Category; index: number }
+const { category, index } = Astro.props;
+---
+<details class="category" data-category={category.id} data-deadline={category.deadline} open={index === 0}>
+  <summary>
+    <span class="category-number">{String(index + 1).padStart(2, '0')}</span>
+    <span class="category-title"><strong>{category.title}</strong><small>{category.subtitle}</small><small class="mobile-deadline">do {category.deadlineLabel}</small><small class="overdue-summary" hidden>Po terminie</small></span>
+    <span class="category-right"><span class="category-deadline"><CalendarDays size={14} /> do {category.deadlineLabel}</span><span class="category-count">0 / {category.tasks.length}</span><span class="category-percent">0%</span><ChevronDown class="category-chevron" size={18} /></span>
+  </summary>
+  <div class="category-body">
+    <div class="category-progress"><span></span></div>
+    <p class="overdue-label" hidden>Termin minął — pozostały niewykonane zadania.</p>
+    <ul class="task-list">
+      {category.tasks.map((task) => (
+        <li class="task-row">
+          <label><input type="checkbox" data-task-id={task.id} /><span class="task-description">{task.description}{task.instructions && <small>{task.instructions}</small>}</span></label>
+          <span class="task-date">do {category.deadlineLabel}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="category-empty" hidden>Wszystkie zadania w tej kategorii są wykonane.</p>
+  </div>
+</details>
